@@ -1,0 +1,14 @@
+﻿@model IEnumerable<CuaHangOnline.Models.Slide>
+@foreach (var item in Model)
+{
+    <div class="col-md-6">
+        <div class="product-offer mb-30" style="height: 300px;">
+            <img class="img-fluid" src="~/Thuvien/img/@item.Anh" alt="thumbail">
+            <div class="offer-text">
+                <h6 class="text-white text-uppercase">@item.Tieude</h6>
+                <h3 class="text-white mb-3">@item.NoiDung</h3>
+                <a href="" class="btn btn-primary">Vào shop ngay!</a>
+            </div>
+        </div>
+    </div>
+}

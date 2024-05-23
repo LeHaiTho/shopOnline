@@ -1,0 +1,232 @@
+﻿@using CuaHangOnline.Models
+@model List<GioHang>
+@{
+    Layout = null;
+    var chu = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width , initial-scale=1.0" />
+    <title>ThanhToanOnline</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="card">
+        <div class="card-top border-bottom text-center">
+            <a href="#">Quay lại đơn hàng</a>
+            <span id="logo">Thanh toán Online</span>
+        </div>
+        <div class="card-body">
+            <form method="post" class="row">
+                <div class="col-md-7">
+                    <div class="left border">
+                        <div class="row">
+                            <span class="header">Thanh Toán</span>
+                            <div class="icons">
+                                <img src="https://img.icons8.com/color/48/000000/visa.png" />
+                                <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                                <img src="https://img.icons8.com/color/48/000000/maestro.png" />
+                            </div>
+                        </div>
+                        
+                            <span>Tên chủ thể:</span>
+                            <input class="form-control" placeholder="Nguyễn Văn A" required>
+                            <span>Số thẻ:</span>
+                            <input class="form-control" placeholder="0125 6780 4567 9909" required>
+                            <div class="row">
+                                <div class="col-4">
+                                    <span>Ngày hết hạn:</span>
+                                    <input class="form-control" placeholder="YY/MM" required>
+                                </div>
+                                <div class="col-4">
+                                    <span>CVV:</span>
+                                    <input class="form-control" id="cvv" required>
+                                </div>
+                            </div>
+                            <input type="checkbox" id="save_card" class="align-left form-control">
+                            <label for="save_card">Lưu chi tiết thẻ vào ví</label>
+                       
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="right border">
+                        <div class="header">Sản phẩm đã đặt</div>
+                        <p>@ViewBag.LoaiSp Loại</p>
+                        @foreach(var item in Model)
+                        { 
+                            @:<div class="row item">
+                                <div class="col-4 align-self-center"><img class="img-fluid" src="~/Thuvien/img/@item.Anh"></div>
+                                <div class="col-8">
+                                    <div class="row"><b>@String.Format(chu,"{0:c0}",item.Dongia)</b></div>
+                                    <div class="row text-muted">@item.TenSP</div>
+                                    <div class="row">Số lượng: @item.SoLuong</div>
+                                </div>
+                            @:</div>
+                        }
+                        <hr>
+                        <div class="row lower">
+                            <div class="col text-left">Tổng số lượng:</div>
+                            <div class="col text-right">@ViewBag.TongSoLuong Sản phẩm</div>
+                        </div>
+                        <div class="row lower">
+                            <div class="col text-left">Vận chuyển</div>
+                            <div class="col text-right">Miên phí</div>
+                        </div>
+                        <div class="row lower">
+                            <div class="col text-left"><b>Tổng tiền:</b></div>
+                            <div class="col text-right"><b>@String.Format(chu, "{0:c0}", ViewBag.TongTien)</b></div>
+                        </div>
+                        <div class="row lower">
+                            <div class="col text-left"><a href="#"><u></u></a></div>
+                        </div>
+                        <button class="btn btn-warning" type="submit">Thanh toán</button>
+                        <p class="text-muted text-center">Miễn phí vận chuyển và trả hàng</p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div>
+        </div>
+    </div>
+    <style type="text/css">
+        body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    font-size: 0.8rem;
+}
+.card{
+    max-width: 1000px;
+    margin: 2vh;
+}
+.card-top{
+    padding: 0.7rem 5rem;
+}
+.card-top a{
+    float: left;
+    margin-top: 0.7rem;
+}
+#logo{
+    font-family: 'Dancing Script';
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+.row{
+    margin: 0;
+}
+.upper{
+    padding: 1rem 0;
+    justify-content: space-evenly;
+}
+#three{
+    border-radius: 1rem;
+        width: 22px;
+    height: 22px;
+    margin-right:3px;
+    border: 1px solid blue;
+    text-align: center;
+    display: inline-block;
+}
+#payment{
+    margin:0;
+    color: blue;
+}
+.icons{
+    margin-left: auto;
+}
+form span{
+    color: rgb(179, 179, 179);
+}
+form{
+    padding: 2vh 0;
+}
+input{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+input:focus::-webkit-input-placeholder
+{
+      color:transparent;
+}
+.header{
+    font-size: 1.5rem;
+}
+.left{
+    background-color: #ffffff;
+    padding: 2vh;
+}
+.left img{
+    width: 2rem;
+}
+.left .col-4{
+    padding-left: 0;
+}
+.right .item{
+    padding: 0.3rem 0;
+}
+.right{
+    background-color: #ffffff;
+    padding: 2vh;
+}
+.col-8{
+    padding: 0 1vh;
+}
+.lower{
+    line-height: 2;
+}
+.btn{
+    color: white;
+    width: 100%;
+    font-size: 0.7rem;
+    margin: 4vh 0 1.5vh 0;
+    padding: 1.5vh;
+    border-radius: 0;
+}
+.btn:focus{
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    -webkit-user-select: none;
+    transition: none;
+}
+.btn:hover{
+    color: white;
+}
+a{
+    color: black;
+}
+a:hover{
+    color: black;
+    text-decoration: none;
+}
+input[type=checkbox]{
+    width: unset;
+    margin-bottom: unset;
+}
+#cvv{
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.575) , rgba(255, 255, 255, 0.541)), url("https://img.icons8.com/material-outlined/24/000000/help.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center;
+}
+#cvv:hover{
+
+}
+    </style>
+</body>
+</html>

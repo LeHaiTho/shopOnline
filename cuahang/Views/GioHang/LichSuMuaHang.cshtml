@@ -1,0 +1,255 @@
+﻿@model IEnumerable<CuaHangOnline.Models.DatHang>
+@using CuaHangOnline.Models
+@{
+    Layout = null;
+    var chu = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LichSuMuaHang</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Lịch sử đặt hàng:
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Mã đơn hàng</th>
+                                <th>Thanh toán</th>
+                                <th>Ngày đặt</th>
+                                <th>Ngày giao</th>
+                                <th>phương thức thanh toán</th>
+                                <th>Vận chuyển</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var donhang in Model)
+                            {
+                                @:<tr data-toggle="collapse" data-target="#@donhang.MaDH" class="accordion-toggle">
+                                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                                    <td>@donhang.MaDH</td>
+                                    if (Convert.ToBoolean(donhang.DaThanhToan))
+                                    {
+                                        <td>đã thanh toán</td>
+                                    }
+                                    else
+                                    {
+                                        <td>chưa thanh toán</td>
+                                    }
+
+                                    DateTime ngaydat = Convert.ToDateTime(donhang.NgayDat);
+                                    DateTime ngaygiao = Convert.ToDateTime(donhang.NgayGiao);
+                                    <td>@ngaydat.ToString("dd-MM-yyyy HH:ss")</td>
+                                    <td>@ngaygiao.ToString("dd-MM-yyyy HH:ss")</td>
+                                    <td>@donhang.PTthanhToan</td>
+                                    <td>
+                                        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#@String.Format(donhang.MaDH.ToString()+"md")">
+                                            <i class="fa fa-shipping-fast text-success"></i>
+                                        </button>
+                                    </td>
+                                @:</tr>
+                                <!-- Modal -->
+                                <div class="modal fade" id="@String.Format(donhang.MaDH.ToString()+"md")" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h2 class="modal-title" id="exampleModalLabel">TÌNH TRẠNG VẬN CHUYỂN</h2>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            @if (donhang.TinhTrangGiaoHang == 1)
+                                            {
+                                                <div class="modal-body">
+                                                    <div class="row-cols-md-6 row-cols-sm-6">
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Xác nhận</div>
+                                                        <div class="col-lg-3"><i class="fa fa-times-circle text-danger"></i> Lấy hàng</div>
+                                                        <div class="col-lg-3"><i class="fa fa-times-circle text-danger"></i> Vận chuyển</div>
+                                                        <div class="col-lg-3"><i class="fa fa-times-circle text-danger"></i> Đã giao</div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="progress" style="height: 1px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <div class="progress" style="height: 20px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (donhang.TinhTrangGiaoHang == 2)
+                                            {
+                                                <div class="modal-body">
+                                                    <div class="row-cols-md-6 row-cols-sm-6">
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Xác nhận</div>
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Lấy hàng</div>
+                                                        <div class="col-lg-3"><i class="fa fa-times-circle text-danger"></i> Vận chuyển</div>
+                                                        <div class="col-lg-3"><i class="fa fa-times-circle text-danger"></i> Đã giao</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div class="progress" style="height: 1px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <div class="progress" style="height: 20px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (donhang.TinhTrangGiaoHang == 3)
+                                            {
+                                                <div class="modal-body">
+                                                    <div class="row-cols-md-6 row-cols-sm-6">
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Xác nhận</div>
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Lấy hàng</div>
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Vận chuyển</div>
+                                                        <div class="col-lg-3"><i class="fa fa-times-circle text-danger"></i> Đã giao</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div class="progress" style="height: 1px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <div class="progress" style="height: 20px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (donhang.TinhTrangGiaoHang == 4)
+                                            {
+                                                <div class="modal-body">
+                                                    <div class="row-cols-md-6 row-cols-sm-6">
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Xác nhận</div>
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Lấy hàng</div>
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Vận chuyển</div>
+                                                        <div class="col-lg-3"><i class="fa fa-check-circle text-success"></i> Đã giao</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-body">
+
+                                                    <div class="progress" style="height: 1px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <div class="progress" style="height: 20px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <h2 class="text-center text-danger"><i class="fa fa-times-circle text-danger"></i> Thất bại - Error</h2>
+                                            }
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div class="accordian-body collapse" id="@donhang.MaDH">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr class="info">
+                                                        <th>Mã sản phẩm</th>
+                                                        <th>Ảnh</th>
+                                                        <th>Tên sản phẩm</th>
+                                                        <th>Số lượng</th>
+                                                        <th>Đơn giá</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (ViewBag.ctdh != null)
+                                                    {
+                                                        foreach (var ctdh in ViewBag.ctdh as List<ChitietDonHang>)
+                                                        {
+                                                            if (donhang.MaDH == ctdh.MaDH)
+                                                            {
+                                                                @:<tr>
+                                                                    <td> @ctdh.IdSp</td>
+                                                                    <td><img class="img-responsive" src="~/Thuvien/img/@ctdh.Anh" style="height:50px" /></td>
+                                                                    <td>@ctdh.TenSp</td>
+                                                                    <td>@ctdh.Soluong </td>
+                                                                    <td> @String.Format(chu, "{0:c0}", ctdh.Dongia)</td>
+                                                                    <td>
+                                                                        <button class="btn btn-default btn-sm">
+                                                                            <i class="fa fa-shopping-basket"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                @:</tr>
+
+
+
+
+
+
+
+
+                                                            }
+
+                                                        }
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+            background-color: #34495e;
+        }
+
+
+
+        .hiddenRow {
+            padding: 0 !important;
+        }
+    </style>
+</body>
+</html>

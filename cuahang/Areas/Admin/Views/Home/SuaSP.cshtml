@@ -1,0 +1,117 @@
+﻿@using CuaHangOnline.Models
+@model IEnumerable<CuaHangOnline.Models.SanPham>
+@{
+    ViewBag.Title = "SuaSP";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid pt-4 px-4">
+    <form class="row g-4" method="post" enctype="multipart/form-data">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Cập nhật sản phẩm</h6>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput"
+                           placeholder="name@example.com" name="tensp" value="@Model.Single().TenSp" required>
+                    <label for="floatingInput">Tên sản phẩm</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingPassword"
+                           placeholder="Password" name="dongia" step="10000" value="@Model.Single().Gia" required>
+                    <label for="floatingPassword">Đơn giá</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="giamgiaid"
+                           placeholder="Password" min="0" step="5" max="100" name="giamgia" value="@Model.Single().Giamgia" required>
+                    <label for="giamgiaid">Giảm giá (%)</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingSelect"
+                            aria-label="Floating label select example" name="sosao" required>
+                        <option value="@Model.Single().SoSao" selected>@Model.Single().SoSao sao</option>
+                        <option value="1">1 sao</option>
+                        <option value="2">2 sao</option>
+                        <option value="3">3 sao</option>
+                        <option value="4">4 sao</option>
+                        <option value="5">5 sao</option>
+
+                    </select>
+                    <label for="floatingSelect">Không được bỏ trống</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="danhmucid" name="danhmuc"
+                            aria-label="Floating label select example" required>
+                        @foreach (var item in ViewBag.Danhmuc as List<DanhMuc>)
+                        {
+                            if (Model.Single().IdDM == item.Id)
+                            {
+                                <option value="@Model.Single().IdDM" selected>@item.TenhDM</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.TenhDM</option>
+                            }
+                        }
+                    </select>
+                    <label for="danhmucid">Không được bỏ trống</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="danhmucnoibatid" name="dmnoibat"
+                            aria-label="Floating label select example" required>
+                        @foreach (var iten in ViewBag.DanhmucNB as List<DanhMucNoiBat>)
+                        {
+                            if (Model.Single().IdDMNoiBat == iten.Id)
+                            {
+                                <option value="@Model.Single().IdDMNoiBat" selected>@iten.TenDMNB</option>
+                            }
+                            else
+                            {
+                                <option value="@iten.Id">@iten.TenDMNB</option>
+                            }
+                        }
+                    </select>
+                    <label for="danhmucnoibatid">Không được bỏ trống</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="soluongid" name="soluong"
+                           placeholder="Password" min="1" step="1" value="@Model.Single().SoLuongSP" required>
+                    <label for="soluongid">Số lượng</label>
+                </div>
+                <div class="mb-3">
+                    <label for="fFileUpload" class="form-label">Chọn Ảnh sản phẩm</label>
+                    <input class="form-control bg-dark" type="file" name="fFileUpload" id="fFileUpload" accept="image/*" required>
+                </div>
+                <div class="mb-3 hidden">
+                    <img id="preview" src="#" class="hidden-md" width="150" height="100" />
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-danger">Thêm</button>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+    <script>
+
+        fFileUpload.onchange = evt => {
+
+            const [file] = fFileUpload.files
+
+        if (file) {
+
+        preview.src = URL.createObjectURL(file);
+
+        $("#preview").removeClass("hidden");
+
+        }
+
+        }
+
+    </script>
+</div>
+
+

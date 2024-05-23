@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CuaHangOnline.Models.ChitietDonHang>
+@{
+    ViewBag.Title = "ChitietDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var chu=System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Chi tiết đơn hàng</h6>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mã SP</th>
+                                <th scope="col">Ảnh</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Đơn giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.IdSp</th>
+                                    <td><img src="~/Thuvien/img/@item.Anh" width="50" height="50" class="img-rounded img-responsive" alt="thumbail"></td>
+                                    <td class="text-white">@item.TenSp</td>
+                                    <td class="text-white">x @item.Soluong</td>
+                                    <td class="text-danger">@String.Format(chu,"{0:c0}",item.Dongia)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

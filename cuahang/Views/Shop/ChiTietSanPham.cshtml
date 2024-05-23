@@ -1,0 +1,140 @@
+﻿@model IEnumerable<CuaHangOnline.Models.SanPham>
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var chu = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="#">Trang chủ</a>
+                <a class="breadcrumb-item text-dark" href="#">Cửa hàng</a>
+                <span class="breadcrumb-item active">Chi tiết</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Shop Detail Start -->
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 mb-30">
+            <img class="w-100 h-100" src="~/Thuvien/img/@Model.Single().Anh" alt="Image">
+        </div>
+        <div class="col-lg-7 h-auto mb-30">
+            <div class="h-100 bg-light p-30">
+                <h3>@Model.Single().TenSp</h3>
+                <div class="d-flex mb-3">
+                    <div class="text-primary mr-2">
+                        @if (Model.Single().SoSao == 5)
+                        {
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                        }
+                        else if (Model.Single().SoSao == 4)
+                        {
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="far fa-star"></small>
+                        }
+                        else if (Model.Single().SoSao == 3)
+                        {
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                        }
+                        else if (Model.Single().SoSao == 2)
+                        {
+                            <small class="fas fa-star"></small>
+                            <small class="fas fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                        }
+                        else if (Model.Single().SoSao == 1)
+                        {
+                            <small class="fas fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                        }
+                        else
+                        {
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                            <small class="far fa-star"></small>
+                        }
+                    </div>
+                    <small class="pt-1 text-danger font-weight-bold">(-@Model.Single().Giamgia%)</small>
+                </div>
+                <h3 class="font-weight-semi-bold mb-4">
+                    @{int a = Convert.ToInt32(Model.Single().Gia), b = Convert.ToInt32(Model.Single().Giamgia);
+                        int c = a - ((a * b) / 100);}
+                    @String.Format(chu, "{0:c0}", c)
+                </h3>
+                <h6 class="text-danger ml-2">
+                    Giá gốc: <del>@String.Format(chu, "{0:c0}", Model.Single().Gia)</del>
+                </h6>
+                <p class="mb-4">
+                    Sản phẩm bán chạy nhất thị trường hiện nay
+                </p>
+                <div class="d-flex mb-3">
+                    
+                </div>
+                <div class="d-flex mb-4">
+                    
+                </div>
+                <div class="d-flex align-items-center mb-4 pt-2">
+                    <form method="post">
+                        <div class="input-group quantity mr-3" style="width: 130px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary btn-minus" type="submit">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control bg-secondary border-0 text-center" name="soluong" value="@ViewBag.Soluong">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary btn-plus" type="submit">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                        <a class="btn btn-primary px-3" href="@Url.Action("ThemGioHang","GioHang",new {msp=Model.Single().MaSp,url=Request.Url.ToString(),soluong=ViewBag.Soluong})" role="button">
+                            <i class="fa fa-shopping-cart mr-1"></i> Thêm sản phẩm
+                        </a>
+                </div>
+                <div class="d-flex pt-2">
+                    <strong class="text-dark mr-2">Share on:</strong>
+                    <div class="d-inline-flex">
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->

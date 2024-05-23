@@ -1,0 +1,61 @@
+﻿@using CuaHangOnline.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var chu = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Quản lý sản phẩm</h6>
+                <a href="@Url.Action("ThemSP","Home")" class="btn btn-info mb-3" role="button">Thêm mới <i class="fa fa-plus text-white"></i></a>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mã SP</th>
+                                <th scope="col">Ảnh</th>
+                                <th scope="col">Tên SP</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Sao</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Giảm giá</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.MaSp</th>
+                                    <td><img src="~/Thuvien/img/@item.Anh" class="img-rounded" width="50" /></td>
+                                    <td class="text-white">@item.TenSp</td>
+                                    <td class="text-danger">@String.Format(chu, "{0:c0}", item.Gia)</td>
+                                    <td class="text-white">@item.SoSao</td>
+                                    <td class="text-white">@item.SoLuongSP</td>
+                                    <td class="text-white">@item.Giamgia%</td>
+                                    <td>
+
+                                        <a href="@Url.Action("SuaSP","Home",new {masp=item.MaSp})" class="btn btn-warning" role="button"><i class="fa fa-wrench text-white"></i></a>
+                                        <a href="@Url.Action("XoaSp","Home",new {masp=item.MaSp})" class="btn btn-danger" role="button"><i class="fa fa-trash text-white"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Tạo liên kết các trang*@
+<div class="container">
+    <i class="fa fa-bookmark text-primary"></i> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new {page = page }))
+    </div>
+</div>

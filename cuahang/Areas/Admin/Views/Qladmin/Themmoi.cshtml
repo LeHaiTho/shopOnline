@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Themmoi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid pt-4 px-4">
+    <form class="row g-4" method="post" enctype="multipart/form-data">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Thêm tài khoản Admin</h6>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" name="hoten"
+                           placeholder="name@example.com" required>
+                    <label for="floatingInput">Họ và Tên</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="floatingInput1" name="dienthoai"
+                           placeholder="name@example.com" required>
+                    <label for="floatingInput1">Điện thoại</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword4" name="taikhoan" required
+                           placeholder="Password">
+                    <label for="floatingPassword4">Tài khoản</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" name="matkhau" required
+                           placeholder="Password">
+                    <label for="floatingPassword">Mật khẩu</label>
+                </div>
+               
+            </div>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h1><i class="fa fa-grin-beam"></i></h1>
+                <div class="mb-3">
+                    <label for="fFileUpload" class="form-label">Chọn Ảnh</label>
+                    <input class="form-control bg-dark" type="file" name="fFileUpload" id="fFileUpload" accept="image/*" required>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="floatingSelect"
+                            aria-label="Floating label select example" name="quyen" required>
+                        <option selected>Chọn quyền</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <label for="floatingSelect">Không được bỏ trống</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <button type="submit" class="btn btn-danger">Thêm mới</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

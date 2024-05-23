@@ -1,0 +1,71 @@
+﻿@using CuaHangOnline.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<DatHang>
+@{
+    ViewBag.Title = "ptDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="col-12">
+    <div class="bg-secondary rounded h-100 p-4">
+        <h6 class="mb-4">Đơn hàng</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Mã</th>
+                        <th scope="col">Ngày đặt</th>
+                        <th scope="col">Ngày giao</th>
+                        <th scope="col">Phương thức</th>
+                        <th scope="col">Thanh toán</th>
+                        <th scope="col">Tình trạng</th>
+                        <th scope="col">Mã KH</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <form method="post">
+                        <tr>
+                            <th scope="row">@item.MaDH</th>
+                            @{DateTime ngaydat = Convert.ToDateTime(item.NgayDat);}
+                            @{DateTime ngaygiao = Convert.ToDateTime(item.NgayGiao);}
+                            <td class="text-white">@ngaydat.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="text-white">@ngaygiao.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="text-white">@item.PTthanhToan</td>
+                            <td>
+                                <select class="form-select" name="@item.MaDH.ToString()" required>
+                                    @if (Convert.ToBoolean(item.DaThanhToan))
+                                    {
+                                        <option value="1">Đã thanh toán</option>
+                                        <option value="2">Chưa thanh toán</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="2">Chưa thanh toán</option>
+                                        <option value="1">Đã thanh toán</option>
+                                    }
+                                </select>
+                            </td>
+                            <td><input type="number" class="form-control" min="1" max="4" name="soluong" value="@item.TinhTrangGiaoHang" /></td>
+                            <td>@item.MaKh</td>
+                            <td>
+                                <button type="submit" class="btn btn-info btn-outline-light text-white">Lưu</button>
+                                <a href="@Url.Action("ChitietDonHang","Qldonhang",new {mahang=item.MaDH })" class="btn btn-success" role="button"><i class="fa fa-eye text-white"></i></a>
+                                <a href="@Url.Action("XoaDonhang","Qldonhang",new {mahang=item.MaDH })" class="btn btn-danger" role="button"><i class="fa fa-trash text-white"></i></a>
+                            </td>
+                        </tr>
+                        </form>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*Tạo liên kết các trang*@
+<div class="container">
+    <i class="fa fa-bookmark text-primary"></i> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("ptDonHang", new { page = page }))
+    </div>
+</div>

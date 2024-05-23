@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CuaHangOnline.Models.DanhMuc>
+<div class="navbar-nav w-100">
+    @{
+        int i = 0;
+        foreach (var item in Model)
+        {
+            if (ViewBag.lst[i] != 0)
+            {
+                <div class="nav-item dropdown dropright">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">@item.TenhDM<i class="fa fa-angle-right float-right mt-1"></i></a>
+                    <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+                        @Html.Action("LoadChildDanhmuc", "Home", new { parentId = item.Id })
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a href="@Url.Action("SanPhamTheoDanhMuc","Home",new {idDM=item.Id})" class="nav-item nav-link">@item.TenhDM</a>
+            }
+            i++;
+        }
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $('.dropdown-submenu a.test').on("click", function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();/*Phương thức stopPropagation() của đối tượng event
+             * được sử dụng để ngăn không cho sự kiện lan tỏa lên các phần tử cha
+             * của phần tử diễn ra sự kiện.*/
+            e.preventDefault();/*Phương thức preventDefault() của đối tượng event
+             * được sử dụng để ngăn chặn xử lý mặc định của trình duyệt khi xảy ra sự kiện.*/
+        });
+    });
+</script>

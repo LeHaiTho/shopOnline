@@ -1,0 +1,250 @@
+﻿@using CuaHangOnline.Models
+@using PagedList.Mvc
+@model PagedList.PagedList<SanPham>
+
+@{
+    ViewBag.Title = "Timkiem";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var chu = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-dark" href="#">Trang chủ</a>
+                <span class="breadcrumb-item active">Cửa hàng</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<!-- Shop Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <!-- Shop Sidebar Start -->
+        <form method="post" class="col-lg-3 col-md-4">
+            <!-- Price Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Lọc theo giá</span></h5>
+            <div class="bg-light p-4 mb-30">
+
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" class="custom-control-input" checked id="price-all">
+                    <label class="custom-control-label" for="price-all">Tất cả</label>
+                    <span class="badge border font-weight-normal">3</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" class="custom-control-input" name="gia-1" id="price-1" value="1000000,1900000">
+                    <label class="custom-control-label" for="price-1">@String.Format(chu, "{0:c0}", 1000000) - @String.Format(chu, "{0:c0}", 1900000)</label>
+                    <span class="badge border font-weight-normal">1</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" class="custom-control-input" name="gia-2" id="price-2" value="5000000,10000000">
+                    <label class="custom-control-label" for="price-2">@String.Format(chu, "{0:c0}", 5000000) - @String.Format(chu, "{0:c0}", 10000000)</label>
+                    <span class="badge border font-weight-normal">2</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" class="custom-control-input" name="gia-3" id="price-3" value="11000000,20000000">
+                    <label class="custom-control-label" for="price-3">@String.Format(chu, "{0:c0}", 11000000) - @String.Format(chu, "{0:c0}", 20000000)</label>
+                    <span class="badge border font-weight-normal">3</span>
+                </div>
+
+            </div>
+            <!-- Price End -->
+            <!-- Color Start -->
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Lọc theo số sao</span></h5>
+            <div class="bg-light p-4 mb-30">
+
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" class="custom-control-input" checked id="color-all">
+                    <label class="custom-control-label" for="price-all">Tất cả</label>
+                    <span class="badge border font-weight-normal">5</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" name="5sao" class="custom-control-input" id="color-1" value="5">
+                    <label class="custom-control-label" for="color-1">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                    </label>
+                    <span class="badge border font-weight-normal">1</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" name="4sao" class="custom-control-input" id="color-2" value="4">
+                    <label class="custom-control-label" for="color-2">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                    </label>
+                    <span class="badge border font-weight-normal">2</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" name="3sao" class="custom-control-input" id="color-3" value="3">
+                    <label class="custom-control-label" for="color-3">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                    </label>
+                    <span class="badge border font-weight-normal">3</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                    <input type="checkbox" name="2sao" class="custom-control-input" id="color-4" value="2">
+                    <label class="custom-control-label" for="color-4">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                    </label>
+                    <span class="badge border font-weight-normal">4</span>
+                </div>
+                <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                    <input type="checkbox" name="1sao" class="custom-control-input" id="color-5" value="1">
+                    <label class="custom-control-label" for="color-5">
+                        <small class="fa fa-star text-primary mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                        <small class="fa fa-star mr-1"></small>
+                    </label>
+                    <span class="badge border font-weight-normal">5</span>
+                </div>
+
+            </div>
+            <div class="p-4 mb-30">
+                <button class="btn btn-danger" type="submit">Lọc <i class="fa fa-filter"></i></button>
+            </div>
+            <!-- Color End -->
+            <!-- Size Start -->
+            <!-- Size End -->
+        </form>
+        <!-- Shop Sidebar End -->
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-8">
+            <div class="row pb-3">
+                <div class="col-12 pb-1">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
+                            <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
+                        </div>
+                        <div class="ml-2">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">Latest</a>
+                                    <a class="dropdown-item" href="#">Popularity</a>
+                                    <a class="dropdown-item" href="#">Best Rating</a>
+                                </div>
+                            </div>
+                            <div class="btn-group ml-2">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">10</a>
+                                    <a class="dropdown-item" href="#">20</a>
+                                    <a class="dropdown-item" href="#">30</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @foreach (var item in Model)
+                {
+                    @:<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="~/Thuvien/img/@item.Anh" alt="thumbail" style="height:250px;width:400px">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href="@Url.Action("ChiTietSanpham","Shop",new {idSp=item.MaSp})"><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="far fa-heart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-sync-alt"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="#"><i class="fa fa-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="@Url.Action("ChiTietSanpham","Shop",new {idSp=item.MaSp})">@item.TenSp</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>
+                                        @{int a = Convert.ToInt32(item.Gia), b = Convert.ToInt32(item.Giamgia);
+                                            int c = a - ((a * b) / 100);}
+                                        @String.Format(chu, "{0:c0}", c)
+                                    </h5>
+                                    <h6 class="text-muted ml-2">
+                                        <del>@String.Format(chu, "{0:c0}", item.Gia)</del>
+                                    </h6>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    @if (item.SoSao == 1)
+                                    {
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                    }
+                                    else if (item.SoSao == 2)
+                                    {
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                    }
+                                    else if (item.SoSao == 3)
+                                    {
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                    }
+                                    else if (item.SoSao == 4)
+                                    {
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                    }
+                                    else if (item.SoSao == 5)
+                                    {
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                    }
+                                    else
+                                    {
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                        <small class="fa fa-star mr-1"></small>
+                                    }
+                                    <small class="text-danger" style="font-weight:bold">(-@item.Giamgia%)</small>
+                                </div>
+                            </div>
+                        </div>
+                    @:</div>
+                }
+            </div>
+        </div>
+        <!-- Shop Product End -->
+    </div>
+</div>
+<!-- Shop End -->
+@*Tạo liên kết các trang*@
+<div class="container">
+    <i class="fa fa-bookmark text-primary"></i> Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("Timkiem", "Search", new { page = page }))
+    </div>
+</div>

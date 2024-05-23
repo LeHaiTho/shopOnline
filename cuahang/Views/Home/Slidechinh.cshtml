@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CuaHangOnline.Models.Slide>
+<div class="col-lg-8">
+    <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+            @for (int i = 1; i < Convert.ToInt32(ViewBag.Count_Chinh); i++)
+            {
+                <li data-target="#header-carousel" data-slide-to="@i"></li>
+            }
+        </ol>
+        @{ int count = 0;}
+        <div class="carousel-inner">
+                @foreach (var item in Model)
+                {
+                    if (item.Loai == "chinh")
+                    {
+                        if (count == 0)
+                        {
+                        <div class="carousel-item position-relative active" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" src="~/Thuvien/img/@item.Anh" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">@item.Tieude</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">@item.NoiDung</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Vào shop ngay!</a>
+                                </div>
+                            </div>
+                            </div>
+                            count = 1;
+                        }
+                        else
+                        {
+                            <div class="carousel-item position-relative" style="height: 430px;">
+                                <img class="position-absolute w-100 h-100" src="~/Thuvien/img/@item.Anh" style="object-fit: cover;">
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px;">
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">@item.Tieude</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">@item.NoiDung</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Vào shop ngay!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        } 
+                    }
+                }
+            </div>
+        </div>
+    </div>
+<div class="col-lg-4">
+    @foreach (var item in Model)
+    {
+        if (item.Loai == "1")
+        {
+            <div class="product-offer mb-30" style="height: 200px;">
+                <img class="img-fluid" src="~/Thuvien/img/@item.Anh" alt="thumbail">
+                <div class="offer-text">
+                    <h6 class="text-white text-uppercase">@item.Tieude</h6>
+                    <h3 class="text-white mb-3">@item.NoiDung</h3>
+                    <a href="" class="btn btn-primary">Vào shop ngay!</a>
+                </div>
+            </div>
+        }
+    }
+</div>

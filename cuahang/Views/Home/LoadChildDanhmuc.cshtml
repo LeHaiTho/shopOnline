@@ -1,0 +1,21 @@
+﻿@model IEnumerable<CuaHangOnline.Models.DanhMuc>
+@{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        if (ViewBag.lst[i] != 0)
+        {
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">@item.TenhDM<i class="fa fa-angle-right float-right mt-1"></i></a>
+            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+                @Html.Action("LoadChildDanhmuc", "Home", new { parentId = item.Id })
+            </div>
+        }
+        else
+        {
+            <a href="@Url.Action("SanPhamTheoDanhMuc","Home",new {idDM=item.Id})" class="dropdown-item">@item.TenhDM</a>
+        }
+        i++;
+    }
+}
+
+
